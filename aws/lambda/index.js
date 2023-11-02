@@ -22,4 +22,5 @@ exports.handler = async (event) => {
         console.error('Error storing data: ', error);
         return { statusCode: 500, body: 'Error storing data' };
     }
+    //Esto es un comentario
 };
