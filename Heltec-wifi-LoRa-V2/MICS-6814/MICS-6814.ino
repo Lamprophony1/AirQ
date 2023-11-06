@@ -1,26 +1,24 @@
-const int S_analog = 1023.0;
+const int S_analog = 1023;
+const int NO2_pin = 36; // Pin para el sensor de Dióxido de Nitrógeno
 
-//int co, nh3; 
-float no2;
-  
+// Funciones para leer los sensores
+
+float leerNO2() {
+  int valorSensor = analogRead(NO2_pin);
+  float no2 = map(valorSensor, 0, S_analog, 3.3, 1000) / 100.0;
+  return no2; // Ya está en ppm
+}
+
 void setup() {
-  Serial.begin(9600);
+  Serial.begin(115200);
 }
 
 void loop() {
-  //co = map (analogRead(A0), 0, S_analog, 1, 1000);            // Calcolo Monossido di Carbonio
-  //nh3 = map (analogRead(A1), 0, S_analog, 1, 500);            // Calcolo Ammoniaca
-  no2 = (map (analogRead(36), 0, S_analog, 5, 1000)) / 100.0 ;  // Calcolo Diossido di Azoto
+  float no2 = leerNO2();
   
-  /*Serial.print("CO: ");
-  Serial.print(co);
-  Serial.print(" ppm\t");
-  Serial.print("NH3: ");
-  Serial.print(nh3);
-  Serial.print("ppm\t");*/
   Serial.print("NO2: ");
-  Serial.print(no2);
-  Serial.println("ppm");
+  Serial.print(no2, 2);
+  Serial.println(" ppm");
 
   delay(1000);
 }
